@@ -1,0 +1,5 @@
+config BR2_PACKAGE_DUPLO
+	bool "duplo"
+	help
+	  Control a Duplo 9203 Remote Control Car Kit
+          with a Nintendo Wii Nunchuk via LIRC
