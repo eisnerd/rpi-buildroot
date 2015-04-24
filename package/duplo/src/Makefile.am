@@ -1,0 +1,4 @@
+bin_PROGRAMS = duplo
+AM_CXXFLAGS = $(WIRINGPI_CFLAGS)
+duplo_SOURCES = duplo.c
+duplo_LDADD = $(WIRINGPI_LIBS)
