@@ -141,9 +141,12 @@ sleep 1
 # format partitions
 
 section "Formatting partitions..."
-
-${MKFS_VFAT} -F 16 -n BOOT -I "${SDCARD}1" || exit 1
-${MKFS_EXT4} -F -q -L rootfs "${SDCARD}2" || exit 1
+one="${SDCARD}1"
+[ -e "${SDCARD}p1" ] && one="${SDCARD}p1"
+two="${SDCARD}2"
+[ -e "${SDCARD}p2" ] && two="${SDCARD}p2"
+${MKFS_VFAT} -F 16 -n BOOT -I "$one" || exit 1
+${MKFS_EXT4} -F -q -L rootfs "$two" || exit 1
 
 # prepare to fill partitions
 
@@ -153,7 +156,7 @@ ${MKDIR} .mnt
 
 section "Populating boot partition..."
 
-${MOUNT} "${SDCARD}1" .mnt || exit 2
+${MOUNT} "$one" .mnt || exit 2
 ${CP} -r ${OUTPUT_PREFIX}images/rpi-firmware/overlays .mnt
 ${CP} ${OUTPUT_PREFIX}images/rpi-firmware/*.dtb .mnt
 ${CP} ${OUTPUT_PREFIX}images/rpi-firmware/bootcode.bin .mnt
@@ -167,7 +170,7 @@ ${UMOUNT} .mnt
 
 section "Populating rootfs partition..."
 
-${MOUNT} "${SDCARD}2" .mnt || exit 2
+${MOUNT} "$two" .mnt || exit 2
 ${TAR} -xpsf ${OUTPUT_PREFIX}images/rootfs.tar -C .mnt
 ${SYNC}
 ${UMOUNT} .mnt
