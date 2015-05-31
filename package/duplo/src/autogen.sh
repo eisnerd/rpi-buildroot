@@ -5,8 +5,6 @@ set -e
 chmod +x $0
 chmod +x ./get-version
 
-touch AUTHORS COPYING ChangeLog INSTALL NEWS README
-
 [ ! -f .gitmodules ] || {
     echo "autogen.sh: updating git submodules"
     git submodule init

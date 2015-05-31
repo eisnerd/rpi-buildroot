@@ -19,6 +19,11 @@ define I2C_TOOLS_INSTALL_TARGET_CMDS
 	do \
 		$(INSTALL) -m 755 -D $(@D)/tools/$$i $(TARGET_DIR)/usr/bin/$$i; \
 	done
+	for i in include/linux/i2c-dev.h; \
+	do \
+		$(INSTALL) -m 644 -D $(@D)/$$i $(STAGING_DIR)/usr/$$i; \
+		$(INSTALL) -m 644 -D $(@D)/$$i $(TARGET_DIR)/usr/$$i; \
+	done
 endef
 
 $(eval $(generic-package))
